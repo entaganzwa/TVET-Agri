@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVET Expert Handover Report - TVET Agri Ubuhinzi Skills+ Project</title>
+    <title>TVET Expert Handover Report & Executive Dashboard - TVET Agri Ubuhinzi Skills+ Project</title>
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #1b365d;
@@ -46,17 +48,17 @@
             background-color: var(--bg-page);
             line-height: 1.6;
             font-size: 14.5px;
-            padding: 2.5rem 1rem;
+            padding: 2rem 1rem;
         }
 
         .document-container {
-            max-width: 1080px;
+            max-width: 1140px;
             margin: 0 auto;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-            padding: 3.5rem 4rem;
+            padding: 3rem 3.5rem;
         }
 
         @media (max-width: 768px) {
@@ -64,15 +66,18 @@
                 padding: 1.5rem;
             }
             body {
-                padding: 1rem 0.5rem;
+                padding: 0.5rem;
             }
         }
 
-        /* Header / Meta Block */
-        .doc-header {
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 1.75rem;
-            margin-bottom: 2.25rem;
+        /* Top Nav / Action Bar */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
 
         .badge-header {
@@ -83,10 +88,35 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.85rem;
             border-radius: 9999px;
-            margin-bottom: 0.75rem;
             border: 1px solid rgba(46, 117, 182, 0.2);
+        }
+
+        .btn-print {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.15s ease;
+        }
+
+        .btn-print:hover {
+            background: var(--primary-light);
+        }
+
+        /* Header Block */
+        .doc-header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 1.75rem;
+            margin-bottom: 2rem;
         }
 
         h1.doc-title {
@@ -94,7 +124,7 @@
             font-size: 2.1rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             letter-spacing: -0.02em;
         }
 
@@ -102,7 +132,120 @@
             color: var(--primary-light);
             font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ========================================= */
+        /* DASHBOARD METRICS & KPI TILES             */
+        /* ========================================= */
+        .dashboard-section {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+        }
+
+        .dashboard-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .kpi-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.15rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .kpi-card.blue::before { background: #2563eb; }
+        .kpi-card.green::before { background: #16a34a; }
+        .kpi-card.amber::before { background: #d97706; }
+        .kpi-card.red::before { background: #dc2626; }
+        .kpi-card.purple::before { background: #7c3aed; }
+        .kpi-card.slate::before { background: #475569; }
+
+        .kpi-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+        }
+
+        .kpi-card.blue .kpi-value { color: #1e40af; }
+        .kpi-card.green .kpi-value { color: #166534; }
+        .kpi-card.amber .kpi-value { color: #b45309; }
+        .kpi-card.red .kpi-value { color: #991b1b; }
+        .kpi-card.purple .kpi-value { color: #6d28d9; }
+        .kpi-card.slate .kpi-value { color: #334155; }
+
+        .kpi-label {
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        /* Charts Layout */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .chart-container {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .chart-header {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.4rem;
+        }
+
+        .chart-canvas-wrapper {
+            position: relative;
+            height: 220px;
+            width: 100%;
         }
 
         /* Typography */
@@ -195,6 +338,77 @@
             letter-spacing: 0.05em;
             margin-bottom: 0.35rem;
             display: block;
+        }
+
+        /* Interactive Filter Bar */
+        .filter-toolbar {
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(46, 117, 182, 0.15);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #4b5563;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
         }
 
         /* Tables */
@@ -383,6 +597,9 @@
                 padding: 0;
                 max-width: 100%;
             }
+            .top-action-bar, .filter-toolbar {
+                display: none !important;
+            }
             .table-responsive {
                 overflow: visible;
             }
@@ -398,6 +615,9 @@
             .badge {
                 border: 1px solid #ccc;
             }
+            .charts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
@@ -405,11 +625,18 @@
 
 <div class="document-container">
 
+    <!-- Top Action Bar -->
+    <div class="top-action-bar">
+        <span class="badge-header">Expertise France Rwanda • EU Delegation</span>
+        <button class="btn-print" onclick="window.print()">
+            🖨️ Print / Save as PDF
+        </button>
+    </div>
+
     <!-- Document Header -->
     <header class="doc-header">
-        <span class="badge-header">Expertise France Rwanda • EU Delegation</span>
         <h1 class="doc-title">TVET EXPERT HANDOVER REPORT</h1>
-        <div class="doc-subtitle">Agricultural Transformation Through Skills Upgrading of Women and Youth in Rwanda (TVET Agri – Ubuhinzi Skills+ Project)</div>
+        <div class="doc-subtitle">Agricultural Transformation Through Skills Upgrading of Women and Youth in Rwanda (TVET Agri – Ubuhinzi Skills+)</div>
 
         <div class="table-responsive" style="margin-top: 1.25rem;">
             <table>
@@ -446,6 +673,84 @@
             </table>
         </div>
     </header>
+
+    <!-- ======================================================== -->
+    <!-- 📊 EXECUTIVE DASHBOARD SECTION                           -->
+    <!-- ======================================================== -->
+    <section class="dashboard-section" id="executive-dashboard">
+        <div class="dashboard-title">
+            <span>📊</span> Executive Project Dashboard & Analytics
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card blue">
+                <div class="kpi-value">12</div>
+                <div class="kpi-label">Activity Packages</div>
+                <div class="kpi-sub">26 Tracked Sub-Lines</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-value">2</div>
+                <div class="kpi-label">Completed Assets</div>
+                <div class="kpi-sub">PTU Design & Templates</div>
+            </div>
+            <div class="kpi-card blue">
+                <div class="kpi-value">4</div>
+                <div class="kpi-label">Active Workstreams</div>
+                <div class="kpi-sub">7 Sub-Activities Ongoing</div>
+            </div>
+            <div class="kpi-card red">
+                <div class="kpi-value">3</div>
+                <div class="kpi-label">At Risk / Delayed</div>
+                <div class="kpi-sub">External Dependencies</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-value">2</div>
+                <div class="kpi-label">CoVE Focus Sites</div>
+                <div class="kpi-sub">Kisaro & Nyagahanga</div>
+            </div>
+            <div class="kpi-card slate">
+                <div class="kpi-value">2,232+</div>
+                <div class="kpi-label">Target Beneficiaries</div>
+                <div class="kpi-sub">Students, Farmers, Staff</div>
+            </div>
+        </div>
+
+        <!-- Visual Charts Grid -->
+        <div class="charts-grid">
+            <!-- Chart 1: Status Distribution -->
+            <div class="chart-container">
+                <div class="chart-header">📈 Portfolio Status Breakdown</div>
+                <div class="chart-canvas-wrapper">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Output Distribution -->
+            <div class="chart-container">
+                <div class="chart-header">🏛️ Activities by Results Output</div>
+                <div class="chart-canvas-wrapper">
+                    <canvas id="outputChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 3: Priority Breakdown -->
+            <div class="chart-container">
+                <div class="chart-header">⚡ Action Item Priorities</div>
+                <div class="chart-canvas-wrapper">
+                    <canvas id="priorityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 4: Multi-Year Timeline -->
+            <div class="chart-container">
+                <div class="chart-header">📅 Delivery Horizon (2026–2028)</div>
+                <div class="chart-canvas-wrapper">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- 1. EXECUTIVE SUMMARY -->
     <section id="executive-summary">
@@ -854,8 +1159,30 @@
         <h2>9. Handover Action Tracker</h2>
         <p>The following action tracker provides an exhaustive, activity-by-activity status record for all 26 workplan lines and core project issues. To ensure complete documentation integrity, unconfirmed parameters are explicitly designated as <em>"To be confirmed"</em>.</p>
 
+        <!-- Interactive Search and Filter Toolbar -->
+        <div class="filter-toolbar">
+            <div class="search-box">
+                <input type="text" id="actionSearch" placeholder="🔍 Search activities, milestones, keywords..." onkeyup="filterActionTable()">
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Status:</span>
+                <button class="filter-btn active" onclick="setStatusFilter('ALL', this)">All</button>
+                <button class="filter-btn" onclick="setStatusFilter('IN PROGRESS', this)">In Progress</button>
+                <button class="filter-btn" onclick="setStatusFilter('DELAYED', this)">Delayed / Risk</button>
+                <button class="filter-btn" onclick="setStatusFilter('PLANNED', this)">Planned</button>
+                <button class="filter-btn" onclick="setStatusFilter('COMPLETED', this)">Completed</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Priority:</span>
+                <button class="filter-btn active" onclick="setPriorityFilter('ALL', this)">All</button>
+                <button class="filter-btn" onclick="setPriorityFilter('HIGH', this)">High</button>
+                <button class="filter-btn" onclick="setPriorityFilter('MEDIUM', this)">Medium</button>
+                <button class="filter-btn" onclick="setPriorityFilter('LOW', this)">Low</button>
+            </div>
+        </div>
+
         <div class="table-responsive">
-            <table>
+            <table id="actionTable">
                 <thead>
                     <tr>
                         <th>Activity / Issue</th>
@@ -869,7 +1196,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>A.1.2.1</strong> Develop CoE Governance Model & Financial Sustainability</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Baseline terms outlined in project document.</td>
@@ -879,7 +1206,7 @@
                         <td>Sept 2026–2027</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.1.1</strong> Contract expertise for governance studies (Phase 1 & 2)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Draft scope of work prepared.</td>
@@ -889,7 +1216,7 @@
                         <td>September 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.1.2</strong> Develop governance models for 2 CoEs (Kisaro & Nyagahanga)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Initial institutional mapping.</td>
@@ -899,7 +1226,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>A.1.2.2</strong> Develop Accreditation Framework for Agri CoEs</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Initial review of ETF CoVE assessment tools.</td>
@@ -909,7 +1236,7 @@
                         <td>Sept 2026–2027</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.2.1</strong> Conduct benchmarking study of agri CoE accreditation</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -919,7 +1246,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.2.2</strong> Adapt best practices to Rwanda & integrate GEDI/climate</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -929,7 +1256,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.2.3</strong> Co-organize validation workshop for accreditation framework</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -939,7 +1266,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>A.1.2.3</strong> Develop Assessment Guidelines for Agri CoEs</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Consultant contracted; draft guidelines drafted.</td>
@@ -949,7 +1276,7 @@
                         <td>Q3 2026 (TBC)</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>1.2.3.1</strong> Contract consultant for assessment guidelines (experiential)</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Consultant contracted and engaged.</td>
@@ -959,7 +1286,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>1.2.3.2</strong> Develop assessment guidelines (experiential learning model)</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>First draft submitted for review.</td>
@@ -969,7 +1296,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.3.3</strong> Organize workshop to validate assessment guidelines</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Workshop concept outlined.</td>
@@ -979,7 +1306,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>A.1.2.4</strong> Develop/Review Curricula in Agri, Animal Health, Food Proc.</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Content outlines drafted for 3 trades.</td>
@@ -989,7 +1316,7 @@
                         <td>Q3–Q4 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>1.2.4.1</strong> Develop Digital Learning Content & Training Manuals (Target: 2)</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Draft digital modules under preparation.</td>
@@ -999,7 +1326,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.4.2</strong> Organize workshops to validate developed modules (Target: 2)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1009,7 +1336,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>A.1.2.5</strong> Review Curricula for Gender-Responsiveness and Inclusion</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Gender screening criteria drafted.</td>
@@ -1019,7 +1346,7 @@
                         <td>Q3–Q4 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>1.2.5.1</strong> Conduct curricula review & develop GEDI modules (Target: 2)</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Trade review underway.</td>
@@ -1029,7 +1356,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.5.2</strong> Organize workshops to validate new GEDI modules (Target: 2)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1039,7 +1366,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="DELAYED" data-priority="HIGH">
                         <td><strong>A.1.2.6</strong> Develop Modular Short Courses (Circular Econ, Gender, Nutr.)</td>
                         <td><span class="badge delayed">DELAYED / AT RISK</span></td>
                         <td>Activity scope defined in results framework.</td>
@@ -1049,7 +1376,7 @@
                         <td>From Sept 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.6.1</strong> Contract 3 consultants for short course topics (Digital)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date (delayed by Needs Assessment).</td>
@@ -1059,7 +1386,7 @@
                         <td>September 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.6.2</strong> Validate developed short course content via workshop (Target: 3)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1069,7 +1396,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.6.3</strong> Conduct training to trainers/teachers (Target: 3 sessions)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1079,7 +1406,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.6.4</strong> Conduct training to farmers</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1089,7 +1416,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.6.5</strong> Conduct training to students</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1099,7 +1426,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>A.1.2.7</strong> Develop Gender-Responsive Trainers' Guide</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Consultant contracted; draft guide drafted.</td>
@@ -1109,7 +1436,7 @@
                         <td>Q3 2026 (TBC)</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="IN PROGRESS" data-priority="HIGH">
                         <td><strong>1.2.7.1</strong> Contract consultant & develop trainer's guide</td>
                         <td><span class="badge progress">IN PROGRESS</span></td>
                         <td>Consultant contracted; initial draft developed.</td>
@@ -1119,7 +1446,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.7.2</strong> Conduct workshop to validate trainer's guide</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1129,7 +1456,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>A.1.2.8</strong> CBT/CBA Capacity Building for Training/Eval Framework Staff</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Concept framework established in concept note template.</td>
@@ -1139,7 +1466,7 @@
                         <td>Aug 2026–2027</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.8.1</strong> Consultative meeting on CBT/CBA & GEDI focus (Target: 1)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Agenda points drafted.</td>
@@ -1149,7 +1476,7 @@
                         <td>August/Sept 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.8.2</strong> Conduct Training of Trainers (ToT) to Lead Trainers (Target: 1)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Training modules outlined.</td>
@@ -1159,7 +1486,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.8.3</strong> Conduct Training of Trainers to selected trainers (Target: 1)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1169,7 +1496,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>A.1.2.9</strong> Support Recognition of Prior Learning (RPL) in Agriculture</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Preliminary discussions with RTB.</td>
@@ -1179,7 +1506,7 @@
                         <td>Oct 2026–2028</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="HIGH">
                         <td><strong>1.2.9.1</strong> Support RTB with TA to plan/start RPL process in Agriculture</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Scope of TA identified.</td>
@@ -1189,7 +1516,7 @@
                         <td>October 2026</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.9.2</strong> Co-participate in workshops/events for RPL development (Target: 1)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1199,7 +1526,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.2.9.3</strong> Co-participate in training for RPL assessors/evaluators (Target: 1)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1209,7 +1536,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>A.1.3.1</strong> Set up & build capacity of Excellency Committees (Target: 2)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Committees mapped to 2 CoVE sites.</td>
@@ -1219,7 +1546,7 @@
                         <td>2027 (Next Year)</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>A.1.3.6</strong> Support On-the-Job Training of Teaching Staff in Companies (Target: 4)</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Enterprise partnership framework outlined in PTU doc.</td>
@@ -1229,7 +1556,7 @@
                         <td>2027 (Next Year)</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.3.6.1</strong> Identify companies to host designated trainers/teachers</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Preliminary private sector mapping.</td>
@@ -1239,7 +1566,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.3.6.2</strong> Sign agreements with host companies & place trainers</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Agreement template outlined.</td>
@@ -1249,7 +1576,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="MEDIUM">
                         <td><strong>1.3.6.3</strong> Visit & monitor trainers under on-the-job training</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>None to date.</td>
@@ -1259,7 +1586,7 @@
                         <td>To be confirmed</td>
                         <td><span class="badge p-medium">MEDIUM</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="PLANNED" data-priority="LOW">
                         <td><strong>A.1.3.8</strong> Set up, equip and support management of Resource Centre</td>
                         <td><span class="badge planned">PLANNED</span></td>
                         <td>Resource centre equipment list outlined in PTU design.</td>
@@ -1269,7 +1596,7 @@
                         <td>Deferred to 2028</td>
                         <td><span class="badge p-low">LOW</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="COMPLETED" data-priority="HIGH">
                         <td><strong>PTU Model Technical Design & Blueprint Validation</strong></td>
                         <td><span class="badge completed">COMPLETED</span></td>
                         <td>Full technical review of 50-page PTU design doc.</td>
@@ -1279,7 +1606,7 @@
                         <td>Completed (Aug 2026)</td>
                         <td><span class="badge p-high">HIGH</span></td>
                     </tr>
-                    <tr>
+                    <tr data-status="COMPLETED" data-priority="HIGH">
                         <td><strong>Capacity Building Concept Note Framework Standardisation</strong></td>
                         <td><span class="badge completed">COMPLETED</span></td>
                         <td>Standardized Training Concept Note Template produced.</td>
@@ -1378,6 +1705,154 @@
     </footer>
 
 </div>
+
+<!-- Interactive Dashboard JavaScript -->
+<script>
+    // Initialize Dashboard Charts on Page Load
+    document.addEventListener("DOMContentLoaded", function() {
+        // Chart 1: Status Distribution Doughnut
+        const ctxStatus = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: ['Planned (35%)', 'In Progress (30%)', 'Delayed / At Risk (25%)', 'Completed (10%)'],
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: ['#94a3b8', '#2563eb', '#dc2626', '#16a34a'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Chart 2: Output Distribution
+        const ctxOutput = document.getElementById('outputChart').getContext('2d');
+        new Chart(ctxOutput, {
+            type: 'bar',
+            data: {
+                labels: ['Output 1.2 (National Training)', 'Output 1.3 (CoVE Capacity)'],
+                datasets: [
+                    { label: 'In Progress', data: [7, 0], backgroundColor: '#2563eb' },
+                    { label: 'Planned', data: [8, 5], backgroundColor: '#94a3b8' },
+                    { label: 'Delayed / Risk', data: [5, 1], backgroundColor: '#dc2626' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, ticks: { font: { size: 10 } } },
+                    y: { stacked: true, beginAtZero: true, ticks: { stepSize: 2 } }
+                },
+                plugins: {
+                    legend: { position: 'top', labels: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Chart 3: Priority Breakdown
+        const ctxPriority = document.getElementById('priorityChart').getContext('2d');
+        new Chart(ctxPriority, {
+            type: 'polarArea',
+            data: {
+                labels: ['High Priority (24)', 'Medium Priority (17)', 'Low Priority (2)'],
+                datasets: [{
+                    data: [24, 17, 2],
+                    backgroundColor: [
+                        'rgba(220, 38, 38, 0.75)',
+                        'rgba(217, 119, 6, 0.75)',
+                        'rgba(100, 116, 139, 0.75)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Chart 4: Timeline Horizon
+        const ctxTimeline = document.getElementById('timelineChart').getContext('2d');
+        new Chart(ctxTimeline, {
+            type: 'bar',
+            data: {
+                labels: ['2026 Q3 (Immediate)', '2026 Q4 (Validation)', '2027 (Rollout)', '2028 (Institutionalize)'],
+                datasets: [{
+                    label: 'Major Milestones',
+                    data: [8, 7, 8, 3],
+                    backgroundColor: ['#0284c7', '#0d9488', '#4f46e5', '#475569'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 2 } },
+                    x: { ticks: { font: { size: 9.5 } } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    });
+
+    // Table Filtering Engine
+    let currentStatusFilter = 'ALL';
+    let currentPriorityFilter = 'ALL';
+
+    function filterActionTable() {
+        const searchVal = document.getElementById('actionSearch').value.toLowerCase();
+        const table = document.getElementById('actionTable');
+        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const text = row.innerText.toLowerCase();
+            const rowStatus = row.getAttribute('data-status') || '';
+            const rowPriority = row.getAttribute('data-priority') || '';
+
+            const matchesSearch = text.includes(searchVal);
+            const matchesStatus = (currentStatusFilter === 'ALL' || rowStatus === currentStatusFilter);
+            const matchesPriority = (currentPriorityFilter === 'ALL' || rowPriority === currentPriorityFilter);
+
+            if (matchesSearch && matchesStatus && matchesPriority) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+
+    function setStatusFilter(status, btnElement) {
+        currentStatusFilter = status;
+        const group = btnElement.parentElement;
+        const buttons = group.getElementsByClassName('filter-btn');
+        for (let b of buttons) b.classList.remove('active');
+        btnElement.classList.add('active');
+        filterActionTable();
+    }
+
+    function setPriorityFilter(priority, btnElement) {
+        currentPriorityFilter = priority;
+        const group = btnElement.parentElement;
+        const buttons = group.getElementsByClassName('filter-btn');
+        for (let b of buttons) b.classList.remove('active');
+        btnElement.classList.add('active');
+        filterActionTable();
+    }
+</script>
 
 </body>
 </html>
