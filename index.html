@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVET Expert Handover Report - TVET Agri Ubuhinzi Skills+ Project</title>
+    <style>
+        :root {
+            --primary: #1b365d;
+            --primary-light: #2e75b6;
+            --primary-subtle: #f0f4f8;
+            --secondary: #4b5563;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-light: #edf2f7;
+            
+            --status-completed-bg: #dcfce7;
+            --status-completed-text: #15803d;
+            --status-progress-bg: #dbeafe;
+            --status-progress-text: #1d4ed8;
+            --status-delayed-bg: #fee2e2;
+            --status-delayed-text: #b91c1c;
+            --status-planned-bg: #f3f4f6;
+            --status-planned-text: #4b5563;
+            
+            --priority-high-bg: #fef2f2;
+            --priority-high-text: #dc2626;
+            --priority-med-bg: #fefce8;
+            --priority-med-text: #b45309;
+            --priority-low-bg: #f3f4f6;
+            --priority-low-text: #6b7280;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.6;
+            font-size: 14.5px;
+            padding: 2.5rem 1rem;
+        }
+
+        .document-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            padding: 3.5rem 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .document-container {
+                padding: 1.5rem;
+            }
+            body {
+                padding: 1rem 0.5rem;
+            }
+        }
+
+        /* Header / Meta Block */
+        .doc-header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 1.75rem;
+            margin-bottom: 2.25rem;
+        }
+
+        .badge-header {
+            display: inline-block;
+            background: var(--primary-subtle);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(46, 117, 182, 0.2);
+        }
+
+        h1.doc-title {
+            color: var(--primary);
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .doc-subtitle {
+            color: var(--primary-light);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Typography */
+        h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            color: var(--primary-light);
+            font-size: 1.12rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h4 {
+            color: var(--secondary);
+            font-size: 0.98rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        strong {
+            color: #111827;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.45rem;
+            color: #374151;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: 8px;
+            padding: 1.15rem 1.35rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        .callout.important {
+            background-color: #fef2f2;
+            border-color: #dc2626;
+            color: #991b1b;
+        }
+
+        .callout.warning {
+            background-color: #fffbeb;
+            border-color: #d97706;
+            color: #92400e;
+        }
+
+        .callout.note {
+            background-color: var(--primary-subtle);
+            border-color: var(--primary-light);
+            color: #1e40af;
+        }
+
+        .callout.success {
+            background-color: #f0fdf4;
+            border-color: #16a34a;
+            color: #166534;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        /* Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+            background: #ffffff;
+        }
+
+        thead th {
+            background-color: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid var(--primary);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+
+        tbody td {
+            padding: 0.7rem 0.85rem;
+            border-bottom: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            color: #374151;
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Status & Priority Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        .badge.completed {
+            background-color: var(--status-completed-bg);
+            color: var(--status-completed-text);
+        }
+
+        .badge.progress {
+            background-color: var(--status-progress-bg);
+            color: var(--status-progress-text);
+        }
+
+        .badge.delayed {
+            background-color: var(--status-delayed-bg);
+            color: var(--status-delayed-text);
+        }
+
+        .badge.planned {
+            background-color: var(--status-planned-bg);
+            color: var(--status-planned-text);
+        }
+
+        .badge.p-high {
+            background-color: var(--priority-high-bg);
+            color: var(--priority-high-text);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .badge.p-medium {
+            background-color: var(--priority-med-bg);
+            color: var(--priority-med-text);
+            border: 1px solid rgba(180, 83, 9, 0.2);
+        }
+
+        .badge.p-low {
+            background-color: var(--priority-low-bg);
+            color: var(--priority-low-text);
+            border: 1px solid rgba(107, 114, 128, 0.2);
+        }
+
+        /* Decision Cards Grid */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .decision-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-light);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .decision-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        .decision-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Roadmap Timeline */
+        .timeline {
+            position: relative;
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            border-left: 2px solid var(--primary-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.45rem;
+            top: 0.25rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .timeline-header {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.02rem;
+            margin-bottom: 0.35rem;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                color: #000;
+            }
+            .document-container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .table-responsive {
+                overflow: visible;
+            }
+            table {
+                font-size: 7.5pt;
+            }
+            thead th {
+                background-color: #1b365d !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .badge {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+
+    <!-- Document Header -->
+    <header class="doc-header">
+        <span class="badge-header">Expertise France Rwanda • EU Delegation</span>
+        <h1 class="doc-title">TVET EXPERT HANDOVER REPORT</h1>
+        <div class="doc-subtitle">Agricultural Transformation Through Skills Upgrading of Women and Youth in Rwanda (TVET Agri – Ubuhinzi Skills+ Project)</div>
+
+        <div class="table-responsive" style="margin-top: 1.25rem;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 25%; font-weight: 700; background-color: #f8fafc;">Project Title</td>
+                        <td>Agricultural Transformation Through Skills Upgrading of Women and Youth in Rwanda (TVET Agri – Ubuhinzi Skills+)</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Contract & Donor</td>
+                        <td>EU Contract Number: <strong>700002154</strong> | European Union / Team Europe Initiative (TEI)</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Implementing Agency</td>
+                        <td>Expertise France (EF), Rwanda Country Office</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Role / Assignment</td>
+                        <td>Technical Vocational Education and Training (TVET) Expert</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Target Audience</td>
+                        <td>Incoming TVET Expert (Successor) & Project Team Leader</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Reporting Period / Baseline</td>
+                        <td>Assignment Handover (Baseline Activity Matrix as of <strong>15 July 2026</strong> / Handover: <strong>August 2026</strong>)</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; background-color: #f8fafc;">Core Portfolio Scope</td>
+                        <td><strong>Output 1.2</strong> (Standardised Quality Agri-TVET Training) & <strong>Output 1.3</strong> (Agri CoVEs/CoEs Capacity & Infrastructure)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <section id="executive-summary">
+        <h2>1. Executive Summary</h2>
+        <p><strong>Assignment Purpose:</strong> This Handover Report provides a concise, professional, evidence-based, and action-oriented synthesis of the technical portfolio managed by the outgoing TVET Expert under the EU-funded <strong>TVET Agri – Ubuhinzi Skills+ Project (2024–2029)</strong>, implemented by Expertise France in Rwanda. The primary objective is to ensure a seamless operational transition for the incoming TVET Expert and provide the Project Team Leader with an unambiguous status map of all deliverables, active consultancies, strategic dependencies, critical bottlenecks, and required decisions.</p>
+        
+        <p><strong>Scope of Portfolio:</strong> The TVET Expert oversees the technical core of Outcome 1, leading <strong>Output 1.2</strong> (<em>Enhanced capacity of Agri TVET Centres at national level to provide standardized quality training relevant to labour market needs, climate action, and gender responsiveness</em>) and <strong>Output 1.3</strong> (<em>Enhanced capacity of targeted Agri Centres of Vocational Excellence - CoVEs/CoEs - to provide quality training and a conducive learning environment</em>).</p>
+
+        <h3>Executive Snapshot of Portfolio Status</h3>
+        <ul>
+            <li><strong>Accomplished (Completed Foundational Assets):</strong> Comprehensive technical review and structuring of the Practical Training Unit (PTU) Model Technical Design for TVET Centres of Excellence at Kisaro TSS (Rulindo District) and EFA Nyagahanga TSS (Gatsibo District); standardisation of the project-wide Capacity Building Concept Note Framework; and baseline structuring of the 2026 TVET Activity Matrix.</li>
+            <li><strong>In Progress (Active In-Flight Workstreams):</strong> 4 major activity packages (7 individual sub-activities) are actively in progress under Output 1.2, covering (i) Experiential Learning Assessment Guidelines, (ii) Digital CBT/CBA Learning Content across Agriculture, Animal Health, and Food Processing, (iii) Gender and Social Inclusion Curricula Review, and (iv) Gender-Responsive Trainer's Guide.</li>
+            <li><strong>Delayed / At Risk (Critical Bottlenecks & Strategic Risks):</strong> (i) Activity A.1.2.6 (Modular Short Courses) is delayed due to an external dependency on the overarching Needs Assessment led by Aimable; (ii) Activity A.1.2.2 (Agri CoE Accreditation Framework) carries high duplication risk with parallel initiatives led by ETF/RTB and must be clarified before proceeding; (iii) Activity A.1.3.8 (Resource Centre) has been rescheduled to 2028.</li>
+            <li><strong>Planned Pipeline (Sequential Roadmap 2026–2028):</strong> Multi-year workpackages scheduled to start include CoE Governance Models (A.1.2.1; Sept 2026–2027), CBT/CBA Staff Capacity Building (A.1.2.8; Aug 2026–2027), Recognition of Prior Learning (RPL) in Agriculture (A.1.2.9; Oct 2026–2028), Excellency Committees (A.1.3.1; 2027), and Teacher Workplace Internships (A.1.3.6; 2027).</li>
+        </ul>
+
+        <div class="callout important">
+            <span class="callout-title">Key Management Takeaway</span>
+            Immediate priority must be given to supervising the four active consultancy workstreams (Guidelines, Curricula, GESI Review, Trainer's Guide) through to their national validation workshops, while resolving the Needs Assessment dependency to unlock the procurement of 3 short-course consultants.
+        </div>
+    </section>
+
+    <!-- 2. OVERALL STATUS & PORTFOLIO ANALYTICS -->
+    <section id="overall-status">
+        <h2>2. Overall Status & Portfolio Analytics</h2>
+        <p>The TVET Expert assignment encompasses 12 main activity packages across Outputs 1.2 and 1.3, comprising 26 granular sub-activity lines tracked within the project's 2026 Workplan. The portfolio represents a balance of foundational pedagogical reform, digital content creation, institutional governance, and school-level infrastructure enablement.</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category / Status</th>
+                        <th>Main Activities</th>
+                        <th>Sub-Activities</th>
+                        <th>Operational Share</th>
+                        <th>Key Focus Areas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge completed">COMPLETED</span></td>
+                        <td>2 Foundational</td>
+                        <td>N/A</td>
+                        <td><strong>10%</strong></td>
+                        <td>PTU Technical Design Review (Kisaro & Nyagahanga), Capacity Building Template, Workplan Baseline</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>4 Packages</td>
+                        <td>7 Lines</td>
+                        <td><strong>30%</strong></td>
+                        <td>Experiential Assessment Guidelines (A.1.2.3), Digital CBT/CBA Modules (A.1.2.4), Gender Review (A.1.2.5), Trainer's Guide (A.1.2.7)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge delayed">DELAYED / AT RISK</span></td>
+                        <td>3 Packages</td>
+                        <td>6 Lines</td>
+                        <td><strong>25%</strong></td>
+                        <td>Modular Short Courses (A.1.2.6 - Needs Assessment dependency); CoE Accreditation (A.1.2.2 - Feasibility/Overlap); Resource Centre (A.1.3.8 - Shifted to 2028)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>7 Packages</td>
+                        <td>13 Lines</td>
+                        <td><strong>35%</strong></td>
+                        <td>Governance Models (A.1.2.1), CBT/CBA ToT (A.1.2.8), RPL TA (A.1.2.9), Excellency Committees (A.1.3.1), Teacher OJT (A.1.3.6)</td>
+                    </tr>
+                    <tr style="font-weight: 700; background-color: #f1f5f9;">
+                        <td>TOTAL PORTFOLIO</td>
+                        <td>12 Main Activities</td>
+                        <td>26 Tracked Lines</td>
+                        <td>100%</td>
+                        <td>Full Output 1.2 and Output 1.3 Delivery Framework</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Project Results Framework Indicator Targets Managed by TVET Expert</h3>
+        <ul>
+            <li><strong>Indicator 1.2.1 (Guiding Documents):</strong> Number of guiding documents for sustainable Agri CoEs developed (Target: Governance model, PTU business model, trainer's guide).</li>
+            <li><strong>Indicator 1.2.2 (Curricula & Modules):</strong> Number of CBT/CBA curricula developed/reviewed in Agriculture, Animal Health, Food Processing (Target: 3 curricula, 2 digital module sets).</li>
+            <li><strong>Indicator 1.2.3 (Capacity Building):</strong> Number of pedagogical staff and lead trainers trained in CBT/CBA and GEDI (Target: 4 capacity building sessions, 1 ToT for lead trainers, 1 ToT for trainers).</li>
+            <li><strong>Indicator 1.2.4 (Short Courses):</strong> Number of short courses developed on sustainable/circular economy, gender, and nutrition (Target: 2 annual modular sets).</li>
+            <li><strong>Indicator 1.2.5 (RPL System):</strong> Technical assistance to RTB for RPL in Agriculture (Target: 3 workshops, assessor training, system operationalization).</li>
+            <li><strong>Indicator 1.3.1 (CoVE Support):</strong> Number of Agri CoVEs supported with functional PTUs, Excellency Committees, and Resource Centres (Target: 2 CoEs - Kisaro TSS and EFA Nyagahanga TSS).</li>
+        </ul>
+    </section>
+
+    <!-- 3. KEY ACHIEVEMENTS -->
+    <section id="key-achievements">
+        <h2>3. Key Achievements & Accomplished Deliverables</h2>
+        <p>During the assignment period, the TVET Expert established critical technical baselines and advanced core deliverables across curriculum development, institutional design, and capacity-building frameworks:</p>
+
+        <h3>3.1. Technical Review of Practical Training Unit (PTU) Model Design</h3>
+        <p><strong>Milestone Accomplishment:</strong> The TVET Expert conducted an extensive technical review and quality assurance of the comprehensive <em>Technical Design for Practical Training Units (PTU) of TVET Centres of Excellence</em> for <strong>Kisaro TSS (Rulindo District)</strong> and <strong>EFA Nyagahanga TSS (Gatsibo District)</strong>. This 50+ page blueprint establishes a modern circular bio-economy model combining hands-on technical training, commercial production units, and technology demonstration.</p>
+        <ul>
+            <li><strong>Circular Infrastructure:</strong> Defined technical specifications, land requirements, and machinery for 6 specialized sub-units: (1) Crop Production & Horticulture, (2) Food Processing & Post-Harvest Value Addition, (3) Animal Health & Veterinary Clinic, (4) Climate-Smart Irrigation & Water Management, (5) Adult Learning & RPL Centre, and (6) Circular Waste-to-Energy (Biogas, Biofertilizer composting, Wastewater treatment, and Machinery Storage / 'Mini Garage').</li>
+            <li><strong>Governance Structure:</strong> Established the organizational framework balancing pedagogical objectives with commercial agribusiness viability, including unit manager responsibilities and revenue reinvestment mechanisms.</li>
+            <li><strong>QA & SOP Integration:</strong> Embedded Standard Operating Procedures (SOPs) and safety compliance benchmarking against Rwanda Agriculture Board (RAB), Rwanda Food and Drugs Authority (FDA), and HACCP/GMP standards.</li>
+        </ul>
+
+        <h3>3.2. Curricula Modernization & Digital CBT/CBA Content Formulation</h3>
+        <p><strong>Pedagogical Reform:</strong> Initiated and technically directed the drafting of digital learning modules and CBT/CBA training manuals across three flagship agricultural trades: <em>Crop Production (Agriculture), Animal Health (Veterinary), and Food Processing</em>. The content integrates green competencies, climate-resilient practices, and interactive digital pedagogy.</p>
+
+        <h3>3.3. Mainstreaming Gender Equality, Disability & Social Inclusion (GEDI)</h3>
+        <p><strong>Inclusion Framework:</strong> Conducted technical screening and launched the dedicated curricula review to systematically embed gender-responsive and disability-inclusive training practices. Oversaw the drafting of the specialized <em>Gender-Responsive and Inclusive Trainers' Guide (Activity A.1.2.7)</em>, providing TVET instructors with concrete pedagogical tools to address the specific needs of female students and trainees with disabilities.</p>
+
+        <h3>3.4. Pedagogical Capacity Building Framework Standardisation</h3>
+        <p><strong>Methodological Asset:</strong> Developed and operationalized the standardized <em>Training / Capacity Building Concept Note Template</em>. This framework standardizes all future project training events, ensuring strict alignment with Bloom's Taxonomy learning outcomes, the project results framework, M&E pre/post-testing protocols, and cost-efficiency benchmarks.</p>
+    </section>
+
+    <!-- 4. ONGOING & PENDING ACTIVITIES -->
+    <section id="ongoing-activities">
+        <h2>4. Ongoing & Pending Activities (Active Technical Streams)</h2>
+        <p>Four primary activity packages under Output 1.2 are actively underway. The successor must maintain continuous oversight of consultant drafting schedules and coordinate upcoming multi-stakeholder validation workshops:</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity Ref & Title</th>
+                        <th>Target / Indicator</th>
+                        <th>Current Status</th>
+                        <th>Work Accomplished</th>
+                        <th>Pending Deliverables</th>
+                        <th>Next Action Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A.1.2.3</strong> Develop Assessment Guidelines for Agri CoEs</td>
+                        <td>1 Guideline Document</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted (1.2.3.1); Draft experiential learning assessment model developed (1.2.3.2).</td>
+                        <td>Draft guideline under internal technical review; validation workshop pending (1.2.3.3).</td>
+                        <td>Review draft guidelines; organize national validation workshop with RTB/NESA.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.4</strong> Develop/Review Curricula in Agri, Animal Health, Food Processing</td>
+                        <td>3 Curricula; 2 Digital Module Sets</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Drafting of Digital Learning Content and CBT/CBA Training Manuals underway (1.2.4.1).</td>
+                        <td>Finalization of 2 digital module sets across 3 trades; validation workshops pending (1.2.4.2).</td>
+                        <td>Quality review of digital modules; convene 2 validation workshops with sector experts.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.5</strong> Review Curricula for Gender-Responsiveness and Inclusion</td>
+                        <td>1 Workshop; 2 Digital Module Sets</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Curricula review underway; Drafting of GEDI digital modules in progress (1.2.5.1).</td>
+                        <td>Consolidated GEDI review report; module drafts; validation workshop pending (1.2.5.2).</td>
+                        <td>Collaborate with EF Gender Expert to validate modules; organize validation workshop.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.7</strong> Develop Gender-Responsive Trainers' Guide</td>
+                        <td>1 Trainers' Guide</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted; Initial draft of Trainer's Guide developed (1.2.7.1).</td>
+                        <td>Technical refinement of Trainer's Guide; validation workshop pending (1.2.7.2).</td>
+                        <td>Complete review of draft guide; organize stakeholder validation workshop with lead trainers.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Detailed Operational Breakdown of Active Workstreams</h3>
+        
+        <h4>Workstream 4.1: Assessment Guidelines & Experiential Learning Model (Activity A.1.2.3)</h4>
+        <ul>
+            <li><strong>Objective:</strong> Validated Assessment Guidelines incorporating climate action, gender, and social inclusion criteria based on the experiential learning model.</li>
+            <li><strong>Progress:</strong> Sub-activities 1.2.3.1 (Consultant contracting) and 1.2.3.2 (Guidelines development) are IN PROGRESS. Draft guidelines are undergoing technical consolidation.</li>
+            <li><strong>Action:</strong> Provide consolidated technical feedback on the draft experiential learning model; draft concept note and budget for the validation workshop (Sub-activity 1.2.3.3 - PLANNED); coordinate participant invitations with RTB and NESA.</li>
+        </ul>
+
+        <h4>Workstream 4.2: Curricula Modernization & Digital Learning Content (Activity A.1.2.4)</h4>
+        <ul>
+            <li><strong>Objective:</strong> 3 Curricula reviewed (Agriculture, Animal Health, Food Processing) and 2 sets of interactive Digital Learning Content / CBT/CBA Training Manuals.</li>
+            <li><strong>Progress:</strong> Sub-activity 1.2.4.1 (Digital content development) is IN PROGRESS. Authors are compiling modular digital packages.</li>
+            <li><strong>Action:</strong> Conduct pedagogical review of draft modules against CBT/CBA requirements; ensure alignment with green competencies; schedule and organize two national validation workshops (Sub-activity 1.2.4.2 - PLANNED).</li>
+        </ul>
+
+        <h4>Workstream 4.3: Gender-Responsive & Social Inclusion Curricula Review (Activity A.1.2.5)</h4>
+        <ul>
+            <li><strong>Objective:</strong> Comprehensive review of curricula in 3 trades and 2 validated digital modules focusing on gender equality, disability inclusion, and anti-harassment.</li>
+            <li><strong>Progress:</strong> Sub-activity 1.2.5.1 (Curricula review and module drafting) is IN PROGRESS in coordination with the Gender Expert.</li>
+            <li><strong>Action:</strong> Finalize trade-specific GEDI module drafts; plan the stakeholder validation workshop (Sub-activity 1.2.5.2 - PLANNED) with RTB, GMO, and disability advocacy groups.</li>
+        </ul>
+
+        <h4>Workstream 4.4: Gender-Responsive & Inclusive Trainers' Guide (Activity A.1.2.7)</h4>
+        <ul>
+            <li><strong>Objective:</strong> 1 Practical Guide for TVET Instructors on delivering CBT/CBA training in a gender-responsive and disability-inclusive manner.</li>
+            <li><strong>Progress:</strong> Sub-activity 1.2.7.1 is IN PROGRESS. The consultant has prepared the initial draft structure.</li>
+            <li><strong>Action:</strong> Review draft guide for practical usability in classroom and farm environments; convene the validation workshop (Sub-activity 1.2.7.2 - PLANNED).</li>
+        </ul>
+    </section>
+
+    <!-- 5. SCHOOL / WORKSTREAM STATUS -->
+    <section id="school-status">
+        <h2>5. School & Workstream Status</h2>
+        <p>The TVET Expert assignment directly supports targeted technical secondary schools transitioning into Centres of Vocational Excellence (CoVEs / CoEs), alongside national-level thematic workstreams.</p>
+
+        <h3>5.1. Centre of Vocational Excellence (CoVE) School Sites</h3>
+        
+        <h4>Kisaro TSS (Rulindo District, Northern Province)</h4>
+        <p><strong>Site Profile:</strong> Kisaro TSS is a primary investment site for infrastructure, commercial production, and pedagogical modernization:</p>
+        <ul>
+            <li><strong>PTU Component:</strong> Crop production sub-unit, modern horticulture greenhouses, climate-smart irrigation/water harvesting, animal health unit, biogas digester, and wastewater recycling.</li>
+            <li><strong>Governance:</strong> Designated for tailored CoE governance model development (Activity 1.2.1.2) and future Excellency Committee establishment (Activity A.1.3.1).</li>
+            <li><strong>Immediate Focus:</strong> Finalize site validation for PTU construction; align school leadership with PTU commercialization and production unit operational modalities.</li>
+        </ul>
+
+        <h4>EFA Nyagahanga TSS (Gatsibo District, Eastern Province)</h4>
+        <p><strong>Site Profile:</strong> EFA Nyagahanga TSS is designated as a flagship agricultural and animal husbandry CoE:</p>
+        <ul>
+            <li><strong>PTU Component:</strong> Food processing and value-addition unit (dairy/grain processing), animal health and veterinary demonstration sub-unit, adult learning/RPL facility, biofertilizer composting, and machinery mini-garage.</li>
+            <li><strong>Governance:</strong> Designated for tailored CoE governance model development (Activity 1.2.1.2) and Excellency Action Plan rollout.</li>
+            <li><strong>Immediate Focus:</strong> Site-specific adaptation of the PTU architectural plans; formal agreement on resource centre space allocation.</li>
+        </ul>
+
+        <div class="callout note">
+            <span class="callout-title">Institutional Site Context</span>
+            While the original EU Project Description of Action (Page 5) referenced EAV Bigogwe, TSS Kisaro, and EAV Rushashi as provisional targets, the technical PTU design and 2026 workplan confirm Kisaro TSS and EFA Nyagahanga TSS as the primary CoVE investment sites.
+        </div>
+
+        <h3>5.2. Thematic Workstream Status</h3>
+        <ul>
+            <li><strong>Curricula Reform:</strong> CBT/CBA Curricula Modernization: National-level alignment with RTB and NESA curriculum frameworks. Transitioning traditional syllabus towards practical, green, and competence-based standards.</li>
+            <li><strong>PTU Ecosystem:</strong> Practical Training Units (PTU): Establishing the dual model of student practical learning and self-sustaining production enterprise across target schools.</li>
+            <li><strong>RPL in Agriculture:</strong> Recognition of Prior Learning (RPL): Building technical assistance roadmap for RTB to assess and certify informal agricultural skills (Activity A.1.2.9; Oct 2026–2028).</li>
+            <li><strong>Industry Linkages:</strong> Private Sector Linkages & Workplace Learning: Engaging agricultural enterprises for teacher industrial attachments (Activity A.1.3.6; 2027) and student work-based learning.</li>
+        </ul>
+    </section>
+
+    <!-- 6. RISKS, BOTTLENECKS & DEPENDENCIES -->
+    <section id="risks-dependencies">
+        <h2>6. Risks, Bottlenecks & Critical Dependencies</h2>
+        <p>A comprehensive analysis of the 2026 TVET activities reveals five critical risks, bottlenecks, and inter-activity dependencies that require proactive management:</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Risk / Bottleneck Area</th>
+                        <th>Affected Activities</th>
+                        <th>Severity</th>
+                        <th>Operational Impact</th>
+                        <th>Mitigation & Action Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dependency on Aimable's Needs Assessment Study</strong></td>
+                        <td>A.1.2.6 (Modular Short Courses & 5 sub-activities)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                        <td>Contracting 3 consultants (1.2.6.1), content validation (1.2.6.2), and subsequent training of teachers (1.2.6.3), farmers (1.2.6.4), and students (1.2.6.5) are blocked.</td>
+                        <td>Meet immediately with Aimable/MEAL Lead to obtain preliminary needs assessment findings and define short-course topic priority list to launch TOR drafting without further delay.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accreditation Framework Overlap & Duplication Risk</strong></td>
+                        <td>A.1.2.2 (Accreditation Framework) & A.1.3.1 (Excellency Committee)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                        <td>Other stakeholders (ETF/RTB/NESA) are currently developing CoE self-assessment and accreditation tools. High risk of duplicated effort and uncoordinated standards.</td>
+                        <td>Hold strategic consultation with RTB, NESA, and ETF. Assess whether to adopt/adapt national framework rather than procuring independent study; align A.1.3.1 timeline accordingly.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teacher In-Company Training Dependency on CPD Plan</strong></td>
+                        <td>A.1.3.6 (Teacher On-the-Job Training & 3 sub-activities)</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                        <td>Selection of 4 teacher batches for enterprise attachment depends on teacher participation and evaluation under this year's Continuous Professional Development (CPD) plan.</td>
+                        <td>Coordinate with RTB Teacher Training Unit to monitor CPD rollout; finalize private sector enterprise mapping and host company criteria in Q4 2026.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Centre Setup Deferral to 2028</strong></td>
+                        <td>A.1.3.8 (Resource Centre Setup & Equipping)</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                        <td>Initially scheduled for October 2026, the activity has been postponed to 2028 pending structural infrastructure readiness and confirmed space allocation at target CoVEs.</td>
+                        <td>Maintain ongoing dialogue with school principals at Kisaro and Nyagahanga regarding space allocation; ensure ICT/library procurement readiness for 2028.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consultant Congestion & Validation Bottleneck</strong></td>
+                        <td>A.1.2.3, A.1.2.4, A.1.2.5, A.1.2.7 (Validation Workshops)</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                        <td>Simultaneous delivery of draft guidelines, digital modules, GEDI review, and trainer's guide creates logistical and technical review congestion for RTB and EF.</td>
+                        <td>Establish a sequenced validation workshop schedule across Q3–Q4 2026; group related workshops where feasible to optimize stakeholder attendance and budget.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 7. DECISIONS / APPROVALS REQUIRED -->
+    <section id="decisions-required">
+        <h2>7. Decisions & Approvals Required</h2>
+        <p>The incoming TVET Expert and Project Team Leader must address five strategic decisions to unlock delayed streams and maintain implementation momentum:</p>
+
+        <div class="decision-grid">
+            <div class="decision-card">
+                <h3>Decision 1: Strategic Positioning on Agri CoE Accreditation Framework (Activity A.1.2.2)</h3>
+                <p><strong>Context & Problem:</strong> The project workplan notes: <em>"Discuss the feasibility as this is being developed by other stakeholders."</em> RTB and the European Training Foundation (ETF) have advanced national guidelines for TVET Centres of Excellence.</p>
+                <ul>
+                    <li><strong>Option A (Recommended):</strong> Partner with RTB/ETF to adapt the existing International Self-Assessment Tool for Centres of Vocational Excellence to the Rwandan agricultural context, focusing EF technical assistance on integrating climate action, gender, and disability metrics.</li>
+                    <li><strong>Option B:</strong> Contract an independent consultancy to develop a separate accreditation framework (Risk of misalignment with RTB national standards).</li>
+                </ul>
+                <div class="decision-meta">
+                    <span><strong>Authority:</strong> Project Team Leader / RTB Senior Management</span>
+                    <span><strong>Deadline:</strong> 15 September 2026</span>
+                    <span><strong>Priority:</strong> <span class="badge p-high">HIGH</span></span>
+                </div>
+            </div>
+
+            <div class="decision-card">
+                <h3>Decision 2: Fast-Tracking Needs Assessment Data for Modular Short Courses (Activity A.1.2.6)</h3>
+                <p><strong>Context & Problem:</strong> Activity A.1.2.6 is scheduled to start in September 2026 but is currently stalled awaiting finalization of the Needs Assessment study led by Aimable.</p>
+                <ul>
+                    <li><strong>Proposed Action:</strong> Request the MEAL/Assessment team to release an interim technical briefing on priority skill gaps in sustainable agriculture, circular economy, and nutrition by 10 September 2026 to enable immediate drafting of TORs for 3 module development consultants.</li>
+                </ul>
+                <div class="decision-meta">
+                    <span><strong>Authority:</strong> Project Team Leader & MEAL Lead</span>
+                    <span><strong>Deadline:</strong> 10 September 2026</span>
+                    <span><strong>Priority:</strong> <span class="badge p-high">HIGH</span></span>
+                </div>
+            </div>
+
+            <div class="decision-card">
+                <h3>Decision 3: Formal Validation of Reviewed PTU Technical Design Blueprint</h3>
+                <p><strong>Context & Problem:</strong> The technical review of the Practical Training Unit (PTU) Model Design for Kisaro TSS and EFA Nyagahanga TSS is complete and documented in <code>MSGS_first_draft_PTU_Model_Design_1_REVIEWED.docx</code>. Formal project approval is required to initiate site preparation and infrastructure procurement.</p>
+                <ul>
+                    <li><strong>Proposed Action:</strong> Organize a technical validation session with the Project Infrastructure/Procurement team, RTB, and school leadership to endorse the spatial zoning, machinery lists, and dual governance structure.</li>
+                </ul>
+                <div class="decision-meta">
+                    <span><strong>Authority:</strong> Project Team Leader & Expertise France Management</span>
+                    <span><strong>Deadline:</strong> 30 September 2026</span>
+                    <span><strong>Priority:</strong> <span class="badge p-high">HIGH</span></span>
+                </div>
+            </div>
+
+            <div class="decision-card">
+                <h3>Decision 4: Procurement Launch for CoE Governance Model Studies (Activity A.1.2.1)</h3>
+                <p><strong>Context & Problem:</strong> Activity A.1.2.1 (Develop a governance model for Agri CoEs, including financial sustainability mechanisms) is planned for September 2026–2027.</p>
+                <ul>
+                    <li><strong>Proposed Action:</strong> Approve the Terms of Reference (TOR) for contracting expertise to conduct Phase 1 (situational diagnostic) and Phase 2 (governance model formulation) adapted to Kisaro TSS and EFA Nyagahanga TSS.</li>
+                </ul>
+                <div class="decision-meta">
+                    <span><strong>Authority:</strong> TVET Expert & Procurement Officer</span>
+                    <span><strong>Deadline:</strong> 20 September 2026</span>
+                    <span><strong>Priority:</strong> <span class="badge p-high">HIGH</span></span>
+                </div>
+            </div>
+
+            <div class="decision-card">
+                <h3>Decision 5: Endorsement of Inter-Agency Technical Assistance Roadmap for RPL (Activity A.1.2.9)</h3>
+                <p><strong>Context & Problem:</strong> Activity A.1.2.9 supports RTB with technical assistance to initiate Recognition of Prior Learning (RPL) in Agriculture, scheduled from October 2026 through 2028.</p>
+                <ul>
+                    <li><strong>Proposed Action:</strong> Convene a high-level technical meeting with RTB and RAB to formally agree on the scope of project support (workshop participation, assessor training curriculum, and pilot certification).</li>
+                </ul>
+                <div class="decision-meta">
+                    <span><strong>Authority:</strong> Project Team Leader & RTB Director General</span>
+                    <span><strong>Deadline:</strong> 15 October 2026</span>
+                    <span><strong>Priority:</strong> <span class="badge p-high">HIGH</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. IMMEDIATE PRIORITIES FOR SUCCESSOR -->
+    <section id="immediate-priorities">
+        <h2>8. Immediate Priorities for the Successor (30-60-90 Day Plan)</h2>
+        <p>To maintain project momentum and ensure high-quality delivery, the incoming TVET Expert should execute the following prioritized roadmap:</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-header">Phase 1: Days 1–30 (Immediate Onboarding & In-Flight Control)</div>
+                <ul>
+                    <li><strong>Day 1–10 (Consultant Contract & Deliverable Review):</strong> Assume immediate technical supervision of the 4 active consultancies: (1) Assessment Guidelines (A.1.2.3), (2) Curricula Digital Content (A.1.2.4), (3) Gender Review Modules (A.1.2.5), and (4) Trainer's Guide (A.1.2.7). Review current drafts against TOR quality benchmarks.</li>
+                    <li><strong>Day 10–15 (Needs Assessment Alignment):</strong> Meet with Aimable and the MEAL team to unblock the topic selection for Modular Short Courses (A.1.2.6); extract key findings for circular economy and green agriculture training modules.</li>
+                    <li><strong>Day 15–20 (Accreditation Strategy Briefing):</strong> Hold strategic alignment session with the Project Team Leader, RTB, and ETF focal points regarding the Agri CoE Accreditation Framework (A.1.2.2).</li>
+                    <li><strong>Day 20–30 (School Leadership Engagement):</strong> Conduct introductory visits or virtual meetings with the Principals and PTU managers of Kisaro TSS and EFA Nyagahanga TSS to review PTU technical design expectations.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">Phase 2: Days 31–60 (Validation & Procurement Launch)</div>
+                <ul>
+                    <li><strong>Day 31–45 (National Validation Workshops):</strong> Organize and facilitate stakeholder validation workshops for the completed Assessment Guidelines (1.2.3.3) and Gender-Responsive Trainer's Guide (1.2.7.2).</li>
+                    <li><strong>Day 40–50 (Modular Short Courses Procurement):</strong> Draft TORs and initiate procurement for 3 consultants to develop training contents for digital modular short courses (1.2.6.1).</li>
+                    <li><strong>Day 45–55 (Governance Model TOR Launch):</strong> Finalize and advertise the procurement notice for the CoE Governance Model study (1.2.1.1) in accordance with the September 2026 workplan schedule.</li>
+                    <li><strong>Day 50–60 (CBT/CBA Capacity Building Consultation):</strong> Convene the consultative meeting with CBT/CBA and GEDI stakeholders (1.2.8.1) to define training modules for lead trainers.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">Phase 3: Days 61–90 (Implementation & Strategic Rollout)</div>
+                <ul>
+                    <li><strong>Day 61–75 (Curricula Digital Content Validation):</strong> Conduct national validation workshops for the finalized digital learning modules and CBT/CBA manuals across 3 trades (1.2.4.2 & 1.2.5.2).</li>
+                    <li><strong>Day 70–80 (RPL Technical Assistance Mobilization):</strong> Finalize the technical assistance agreement with RTB for RPL in Agriculture (1.2.9.1) and participate in initial stakeholder planning events.</li>
+                    <li><strong>Day 75–90 (Training of Trainers Execution):</strong> Launch the first ToT session for selected Lead Trainers on CBT/CBA and GEDI methodology (1.2.8.2).</li>
+                    <li><strong>Day 80–90 (PTU Implementation Oversight):</strong> Coordinate with the infrastructure team on the ground preparation and equipment procurement pipeline for Kisaro and Nyagahanga PTUs.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. HANDOVER ACTION TRACKER -->
+    <section id="action-tracker">
+        <h2>9. Handover Action Tracker</h2>
+        <p>The following action tracker provides an exhaustive, activity-by-activity status record for all 26 workplan lines and core project issues. To ensure complete documentation integrity, unconfirmed parameters are explicitly designated as <em>"To be confirmed"</em>.</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity / Issue</th>
+                        <th>Status</th>
+                        <th>Completed Work</th>
+                        <th>Outstanding Work</th>
+                        <th>Next Action</th>
+                        <th>Responsible Person</th>
+                        <th>Deadline</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A.1.2.1</strong> Develop CoE Governance Model & Financial Sustainability</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Baseline terms outlined in project document.</td>
+                        <td>Phase 1 & 2 diagnostic studies; 2 adapted governance models.</td>
+                        <td>Finalize TOR; launch procurement for governance expertise.</td>
+                        <td>TVET Expert / Procurement</td>
+                        <td>Sept 2026–2027</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.1.1</strong> Contract expertise for governance studies (Phase 1 & 2)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Draft scope of work prepared.</td>
+                        <td>Procurement, contracting, and study execution.</td>
+                        <td>Publish tender; evaluate technical proposals.</td>
+                        <td>Procurement / TVET Expert</td>
+                        <td>September 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.1.2</strong> Develop governance models for 2 CoEs (Kisaro & Nyagahanga)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Initial institutional mapping.</td>
+                        <td>Drafting and adapting governance models for 2 schools.</td>
+                        <td>Supervise consultant field data collection at 2 CoEs.</td>
+                        <td>Consultant / TVET Expert</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.2</strong> Develop Accreditation Framework for Agri CoEs</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Initial review of ETF CoVE assessment tools.</td>
+                        <td>Benchmarking study, contextual adaptation, validation.</td>
+                        <td>Convene alignment meeting with RTB/ETF on tool duplication.</td>
+                        <td>TVET Expert / Team Leader</td>
+                        <td>Sept 2026–2027</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.2.1</strong> Conduct benchmarking study of agri CoE accreditation</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Comparative analysis of regional/international frameworks.</td>
+                        <td>Determine feasibility based on external stakeholder progress.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.2.2</strong> Adapt best practices to Rwanda & integrate GEDI/climate</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Integration of climate, gender, and inclusion metrics.</td>
+                        <td>Draft criteria matrix aligned with Rwandan TVET law.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.2.3</strong> Co-organize validation workshop for accreditation framework</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Multi-stakeholder validation event.</td>
+                        <td>Plan workshop once draft framework is finalized.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.3</strong> Develop Assessment Guidelines for Agri CoEs</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted; draft guidelines drafted.</td>
+                        <td>Final draft refinement; validation workshop.</td>
+                        <td>Review draft guidelines; organize validation workshop.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>Q3 2026 (TBC)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.3.1</strong> Contract consultant for assessment guidelines (experiential)</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted and engaged.</td>
+                        <td>Deliverable submission and administrative closure.</td>
+                        <td>Monitor deliverable milestones against contract schedule.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.3.2</strong> Develop assessment guidelines (experiential learning model)</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>First draft submitted for review.</td>
+                        <td>Integration of technical feedback from TVET Expert.</td>
+                        <td>Finalize consolidated draft guideline document.</td>
+                        <td>Consultant</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.3.3</strong> Organize workshop to validate assessment guidelines</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Workshop concept outlined.</td>
+                        <td>Participant invitations, venue logistics, workshop execution.</td>
+                        <td>Draft workshop concept note using standardized template.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.4</strong> Develop/Review Curricula in Agri, Animal Health, Food Proc.</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Content outlines drafted for 3 trades.</td>
+                        <td>Finalization of 2 digital module sets; 2 validation workshops.</td>
+                        <td>Conduct technical review of digital training manuals.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>Q3–Q4 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.4.1</strong> Develop Digital Learning Content & Training Manuals (Target: 2)</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Draft digital modules under preparation.</td>
+                        <td>Complete draft modules for 3 trades.</td>
+                        <td>Review modules for CBT/CBA and green skill compliance.</td>
+                        <td>Consultants / TVET Expert</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.4.2</strong> Organize workshops to validate developed modules (Target: 2)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>2 stakeholder validation workshops.</td>
+                        <td>Schedule validation workshops upon receipt of final drafts.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.5</strong> Review Curricula for Gender-Responsiveness and Inclusion</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Gender screening criteria drafted.</td>
+                        <td>Complete trade reviews; draft 2 modules; validation workshop.</td>
+                        <td>Coordinate with Gender Expert on draft trade modules.</td>
+                        <td>TVET Expert / Gender Exp</td>
+                        <td>Q3–Q4 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.5.1</strong> Conduct curricula review & develop GEDI modules (Target: 2)</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Trade review underway.</td>
+                        <td>Finalization of 2 digital GEDI modules.</td>
+                        <td>Review module content with gender advocacy focal points.</td>
+                        <td>Consultant / Gender Exp</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.5.2</strong> Organize workshops to validate new GEDI modules (Target: 2)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>2 validation workshops.</td>
+                        <td>Plan joint validation workshop with A.1.2.4 where feasible.</td>
+                        <td>TVET Expert / Gender Exp</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.6</strong> Develop Modular Short Courses (Circular Econ, Gender, Nutr.)</td>
+                        <td><span class="badge delayed">DELAYED / AT RISK</span></td>
+                        <td>Activity scope defined in results framework.</td>
+                        <td>3 consultant contracts; 3 contents; teacher/farmer/student training.</td>
+                        <td>Obtain Needs Assessment data from Aimable; draft TORs.</td>
+                        <td>TVET Expert / MEAL Lead</td>
+                        <td>From Sept 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.6.1</strong> Contract 3 consultants for short course topics (Digital)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date (delayed by Needs Assessment).</td>
+                        <td>TOR formulation, tendering, contracting 3 consultants.</td>
+                        <td>Finalize TORs based on preliminary assessment findings.</td>
+                        <td>TVET Expert / Procurement</td>
+                        <td>September 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.6.2</strong> Validate developed short course content via workshop (Target: 3)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>3 content validation workshops.</td>
+                        <td>Schedule validation sessions post-content drafting.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.6.3</strong> Conduct training to trainers/teachers (Target: 3 sessions)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>3 teacher training sessions delivered.</td>
+                        <td>Select trainee teachers in coordination with CoVE principals.</td>
+                        <td>TVET Expert / Master Train</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.6.4</strong> Conduct training to farmers</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Farmer outreach training sessions delivered.</td>
+                        <td>Coordinate with RAB/FFS networks surrounding CoVEs.</td>
+                        <td>TVET Expert / RAB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.6.5</strong> Conduct training to students</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Student short-course modules delivered.</td>
+                        <td>Embed short courses into target CoVE academic calendar.</td>
+                        <td>TVET Expert / CoVE Staff</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.7</strong> Develop Gender-Responsive Trainers' Guide</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted; draft guide drafted.</td>
+                        <td>Final draft refinement; validation workshop.</td>
+                        <td>Review draft trainer's guide; organize validation workshop.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>Q3 2026 (TBC)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.7.1</strong> Contract consultant & develop trainer's guide</td>
+                        <td><span class="badge progress">IN PROGRESS</span></td>
+                        <td>Consultant contracted; initial draft developed.</td>
+                        <td>Finalization of complete trainer's guide document.</td>
+                        <td>Perform comprehensive technical QA on draft guide.</td>
+                        <td>TVET Expert / Consultant</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.7.2</strong> Conduct workshop to validate trainer's guide</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>National validation workshop.</td>
+                        <td>Draft workshop concept note and invite lead trainers.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.8</strong> CBT/CBA Capacity Building for Training/Eval Framework Staff</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Concept framework established in concept note template.</td>
+                        <td>1 consultative meeting; 1 Lead ToT; 1 Trainer ToT (4 sessions).</td>
+                        <td>Convene consultative meeting with RTB & GEDI stakeholders.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>Aug 2026–2027</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.8.1</strong> Consultative meeting on CBT/CBA & GEDI focus (Target: 1)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Agenda points drafted.</td>
+                        <td>Consultative meeting conducted with stakeholders.</td>
+                        <td>Issue meeting invitations to RTB, NESA, and GEDI partners.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>August/Sept 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.8.2</strong> Conduct Training of Trainers (ToT) to Lead Trainers (Target: 1)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Training modules outlined.</td>
+                        <td>Delivery of Lead ToT session.</td>
+                        <td>Finalize participant list of Lead Trainers across districts.</td>
+                        <td>TVET Expert / Master Train</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.8.3</strong> Conduct Training of Trainers to selected trainers (Target: 1)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Delivery of general Trainer ToT session.</td>
+                        <td>Schedule training following completion of Lead ToT.</td>
+                        <td>TVET Expert / Lead Train</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.2.9</strong> Support Recognition of Prior Learning (RPL) in Agriculture</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Preliminary discussions with RTB.</td>
+                        <td>TA to plan RPL; 1 stakeholder workshop; 1 assessor training.</td>
+                        <td>Formalize technical assistance roadmap with RTB RPL unit.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>Oct 2026–2028</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.9.1</strong> Support RTB with TA to plan/start RPL process in Agriculture</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Scope of TA identified.</td>
+                        <td>Provision of ongoing technical advisory to RTB.</td>
+                        <td>Draft TA terms of reference and schedule joint kickoff.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>October 2026</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.9.2</strong> Co-participate in workshops/events for RPL development (Target: 1)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>1 stakeholder workshop co-facilitated.</td>
+                        <td>Coordinate date and project contribution with RTB.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.2.9.3</strong> Co-participate in training for RPL assessors/evaluators (Target: 1)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>1 assessor training conducted.</td>
+                        <td>Review RPL assessor training curriculum for agriculture.</td>
+                        <td>TVET Expert / RTB</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.3.1</strong> Set up & build capacity of Excellency Committees (Target: 2)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Committees mapped to 2 CoVE sites.</td>
+                        <td>Establishment of 2 committees; 2 Excellency Action Plans.</td>
+                        <td>Align committee terms with finalized accreditation criteria.</td>
+                        <td>TVET Expert / CoVEs</td>
+                        <td>2027 (Next Year)</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.3.6</strong> Support On-the-Job Training of Teaching Staff in Companies (Target: 4)</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Enterprise partnership framework outlined in PTU doc.</td>
+                        <td>Identify host companies; sign agreements; place & visit trainers.</td>
+                        <td>Review teacher CPD response; draft host company agreements.</td>
+                        <td>TVET Expert / Private Sec</td>
+                        <td>2027 (Next Year)</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.3.6.1</strong> Identify companies to host designated trainers/teachers</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Preliminary private sector mapping.</td>
+                        <td>Final roster of qualified agricultural host enterprises.</td>
+                        <td>Engage PSF Agriculture Chamber and regional agribusinesses.</td>
+                        <td>TVET Expert / PSF</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.3.6.2</strong> Sign agreements with host companies & place trainers</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Agreement template outlined.</td>
+                        <td>Signed MoUs and successful placement of 4 teacher batches.</td>
+                        <td>Draft bipartite placement agreements with host firms.</td>
+                        <td>TVET Expert / EF Legal</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1.3.6.3</strong> Visit & monitor trainers under on-the-job training</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>None to date.</td>
+                        <td>Supervisory field monitoring visits conducted.</td>
+                        <td>Establish supervisory logbook and assessment rubric.</td>
+                        <td>TVET Expert</td>
+                        <td>To be confirmed</td>
+                        <td><span class="badge p-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A.1.3.8</strong> Set up, equip and support management of Resource Centre</td>
+                        <td><span class="badge planned">PLANNED</span></td>
+                        <td>Resource centre equipment list outlined in PTU design.</td>
+                        <td>Procurement of materials; physical setup; operational launch.</td>
+                        <td>Monitor school space readiness; prepare procurement for 2028.</td>
+                        <td>TVET Expert / Procurement</td>
+                        <td>Deferred to 2028</td>
+                        <td><span class="badge p-low">LOW</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>PTU Model Technical Design & Blueprint Validation</strong></td>
+                        <td><span class="badge completed">COMPLETED</span></td>
+                        <td>Full technical review of 50-page PTU design doc.</td>
+                        <td>Architectural translation and site civil works tendering.</td>
+                        <td>Endorse reviewed PTU blueprint for Kisaro & Nyagahanga.</td>
+                        <td>TVET Expert / Team Leader</td>
+                        <td>Completed (Aug 2026)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Capacity Building Concept Note Framework Standardisation</strong></td>
+                        <td><span class="badge completed">COMPLETED</span></td>
+                        <td>Standardized Training Concept Note Template produced.</td>
+                        <td>Application of template across all upcoming training events.</td>
+                        <td>Ensure all subsequent workshop concept notes follow template.</td>
+                        <td>TVET Expert / Successor</td>
+                        <td>Completed (Aug 2026)</td>
+                        <td><span class="badge p-high">HIGH</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 10. INFORMATION GAPS & ITEMS TO CONFIRM -->
+    <section id="information-gaps">
+        <h2>10. Information Gaps, Spreadsheet Inconsistencies & Items to Confirm</h2>
+        <p>A rigorous audit of the project's source data files revealed several technical inconsistencies, formula errors, and unconfirmed parameters that the successor must rectify in coordination with the MEAL and Project Management teams:</p>
+
+        <h3>10.1. Spreadsheet Inconsistencies & Technical Formula Errors</h3>
+        <ul>
+            <li><strong>Formula Error (#DIV/0!):</strong> In Sheet 1 (<em>'2026 Activities'</em>), Row 48 (Activity A.1.3.8 - Resource Centre) displays a <code>#DIV/0!</code> formula error in the '% Progress' column. This resulted from an Excel formula attempting to divide achieved progress (0) by an unpopulated numerical target cell. In Sheet 2 (<em>'2026 Activities improved'</em>), the error was cleaned by removing the redundant columns, but the master logframe requires a standardized formula rule (e.g., <code>IFERROR</code>).</li>
+            <li><strong>Progress Tracking Discrepancy:</strong> Sheet 1 logs numerical 'Achieved' values as 0 and '% Progress' as 0% for activities marked as 'IN PROGRESS' (such as A.1.2.3, A.1.2.4, A.1.2.5, A.1.2.7). This creates a misleading impression in automated dashboard rollups that no work has occurred, despite extensive drafting and consultant contracting. The successor should ensure qualitative milestones are properly mapped to milestone percentages (e.g., 50% for draft deliverable submitted).</li>
+            <li><strong>Duplicate Worksheets:</strong> The workbook contains two overlapping worksheets: <em>'2026 Activities'</em> (9 columns with numerical achievement fields) and <em>'2026 Activities improved'</em> (7 columns cleaned). Sheet 2 should be officially designated as the active working matrix, and legacy sheets should be archived to prevent version confusion.</li>
+        </ul>
+
+        <h3>10.2. Missing Information & Items Requiring Formal Confirmation</h3>
+        <ul>
+            <li><strong>Active Contract Deadlines:</strong> The spreadsheet marks active sub-activities (1.2.3.1, 1.2.3.2, 1.2.4.1, 1.2.5.1, 1.2.7.1) as 'IN PROGRESS' but leaves the calendar completion dates blank. The successor must review the physical contracts with the Procurement Officer to confirm exact deliverable due dates.</li>
+            <li><strong>Sub-Activity Target Metrics:</strong> Several sub-activities have blank target cells (e.g., 1.2.1.1, 1.2.1.2, 1.2.2.1, 1.2.2.2, 1.2.2.3, 1.2.3.1, 1.2.3.2, 1.2.3.3, 1.2.6.4, 1.2.6.5, 1.2.7.1, 1.2.7.2, 1.2.9.1, 1.3.6.1, 1.3.6.2, 1.3.6.3, A.1.3.8). These must be populated with specific target metrics (e.g., number of reports, number of participants, number of MoUs signed) during the upcoming workplan update.</li>
+            <li><strong>Needs Assessment Milestone:</strong> The exact delivery milestone for the Needs Assessment study is not formally logged in the TVET matrix, directly jeopardizing the start of Activity A.1.2.6. A formal delivery date must be confirmed with the Project Team Leader.</li>
+            <li><strong>School List Reconciliation:</strong> The original EU Description of Action mentions EAV Bigogwe, TSS Kisaro, and EAV Rushashi (Page 5), whereas the PTU Technical Design document and current workplan focus specifically on Kisaro TSS (Rulindo) and EFA Nyagahanga TSS (Gatsibo). Formal confirmation of the total scope of schools supported across the 5-year project lifecycle should be re-validated with Project Management.</li>
+        </ul>
+    </section>
+
+    <!-- 11. ANNEX: REFERENCE REPOSITORY -->
+    <section id="annex">
+        <h2>11. Annex: Key Documents & Reference Repository</h2>
+        <p>All primary technical files, templates, reference blueprints, and workplan matrices are organized in the project folder as detailed below:</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document File Name</th>
+                        <th>Document Type & Description</th>
+                        <th>Key Technical Content</th>
+                        <th>Location / Path</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TVET_Expert_2026_Activities.xlsx</strong></td>
+                        <td>Master Workplan & Activity Tracker</td>
+                        <td>Complete log of 26 TVET activities, indicator targets, status tracking, periods, and dependency comments.</td>
+                        <td>Project Root Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSGS_first_draft_PTU_Model_Design_1_REVIEWED.docx</strong></td>
+                        <td>Technical Design Blueprint (Reviewed)</td>
+                        <td>50+ page detailed engineering, pedagogical, zoning, and governance blueprint for PTUs at Kisaro TSS and EFA Nyagahanga TSS.</td>
+                        <td>Project Root Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Training Concept Note Template.docx</strong></td>
+                        <td>Standardized Pedagogical Template</td>
+                        <td>Standardized template for all capacity building events, training objectives (Bloom's Taxonomy), results framework links, and M&E.</td>
+                        <td>Project Root Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TVET Agri_Document.pdf</strong></td>
+                        <td>EU Description of Action (DoA)</td>
+                        <td>52-page master project contract (No. 700002154) detailing overall objectives, specific outcomes, results logframe, and governance.</td>
+                        <td>Project Root Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ETF_TVET CoVEs Rwanda.pdf</strong></td>
+                        <td>Policy & Benchmark Reference</td>
+                        <td>European Training Foundation policy study on TVET Centres of Excellence in Rwanda (governance, services, self-assessment).</td>
+                        <td>Project Root Directory</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Document Sign-off Footer -->
+    <footer class="doc-footer">
+        <div>
+            <strong>Report Prepared and Submitted by:</strong> Outgoing TVET Expert, Expertise France Rwanda<br>
+            <strong>Received by:</strong> Incoming TVET Expert & Project Team Leader, Expertise France Rwanda
+        </div>
+        <div>
+            <strong>Date & Location:</strong> August 2026 | Kigali, Rwanda
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
